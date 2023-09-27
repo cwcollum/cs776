@@ -1,8 +1,10 @@
 #include "util.h"
 
-void runFunc1GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
+int runFunc1GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
     int inDim = 3;
     int encodeLen = 10;
+    bool found = false;
+    int generations = 0;
 
     Population popul(userPopChoice, userXOverProb, userMutateProb);
     for(int j = 0; j < userPopChoice; j++){
@@ -18,7 +20,8 @@ void runFunc1GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
     std::cout << "Gen(0) ";
     popul.displayPopData();
 
-    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+        ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
 
     for(int j = 0; j < userGenChoice; j++){
         popul.selectNewPopulation();
@@ -45,19 +48,30 @@ void runFunc1GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
         popul.calcFitnessSum();
 
         popul.findMaxFitness();
+        if(popul.getMaxObjVal() <= 0.786432 && found == false){
+            found = true;
+            generations = j;
+        }
+        else if(found == false){
+            generations = 1000;
+        }
         popul.findMinFitness();
         popul.findAvgFitness();
         std::cout << "Gen(" << j + 1 << ") ";
         popul.displayPopData();
 
-        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+        ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
     }
     std::cout << endl;
+    return generations;
 }
 
-void runFunc2GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
+int runFunc2GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
     int inDim = 2;
     int encodeLen = 12;
+    bool found = false;
+    int generations = 0;
 
     Population popul(userPopChoice, userXOverProb, userMutateProb);
     for(int j = 0; j < userPopChoice; j++){
@@ -73,7 +87,8 @@ void runFunc2GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
     std::cout << "Gen(0) ";
     popul.displayPopData();
 
-    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+        ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
 
     for(int j = 0; j < userGenChoice; j++){
         popul.selectNewPopulation();
@@ -100,19 +115,30 @@ void runFunc2GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
         popul.calcFitnessSum();
 
         popul.findMaxFitness();
+        if(popul.getMaxObjVal() <= 6.5 && found == false){
+            found = true;
+            generations = j;
+        }
+        else if(found == false){
+            generations = 1000;
+        }
         popul.findMinFitness();
         popul.findAvgFitness();
         std::cout << "Gen(" << j + 1 << ") ";
         popul.displayPopData();
 
-        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+        ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
     }
     std::cout << endl;
+    return generations;
 }
 
-void runFunc3GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
+int runFunc3GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
     int inDim = 5;
     int encodeLen = 10;
+    bool found = false;
+    int generations = 0;
 
     Population popul(userPopChoice, userXOverProb, userMutateProb);
     for(int j = 0; j < userPopChoice; j++){
@@ -128,7 +154,8 @@ void runFunc3GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
     std::cout << "Gen(0) ";
     popul.displayPopData();
 
-    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+        ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
 
     for(int j = 0; j < userGenChoice; j++){
         popul.selectNewPopulation();
@@ -155,19 +182,31 @@ void runFunc3GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
         popul.calcFitnessSum();
 
         popul.findMaxFitness();
+        if(popul.getMaxObjVal() <= -25 && found == false){
+            cout << popul.getMaxObjVal() << endl;
+            found = true;
+            generations = j;
+        }
+        else if(found == false){
+            generations = 1000;
+        }
         popul.findMinFitness();
         popul.findAvgFitness();
         std::cout << "Gen(" << j + 1 << ") ";
         popul.displayPopData();
 
-        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+            ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
     }
     std::cout << endl;
+    return generations;
 }
 
-void runFunc4GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
+int runFunc4GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
     int inDim = 30;
     int encodeLen = 8;
+    bool found = false;
+    int generations = 0;
 
     Population popul(userPopChoice, userXOverProb, userMutateProb);
     for(int j = 0; j < userPopChoice; j++){
@@ -183,7 +222,8 @@ void runFunc4GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
     std::cout << "Gen(0) ";
     popul.displayPopData();
 
-    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+        ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
 
     for(int j = 0; j < userGenChoice; j++){
         popul.selectNewPopulation();
@@ -210,19 +250,30 @@ void runFunc4GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
         popul.calcFitnessSum();
 
         popul.findMaxFitness();
+        if(popul.getMaxObjVal() <= 5 && found == false){
+            found = true;
+            generations = j;
+        }
+        else if(found == false){
+            generations = 1000;
+        }
         popul.findMinFitness();
         popul.findAvgFitness();
         std::cout << "Gen(" << j + 1 << ") ";
         popul.displayPopData();
 
-        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+            ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
     }
     std::cout << endl;
+    return generations;
 }
 
-void runFunc5GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
+int runFunc5GA(char userCHCChoice, int userPopChoice, int userGenChoice, float userXOverProb, float userMutateProb, int seed, ofstream& fout){
     int inDim = 2;
     int encodeLen = 17;
+    bool found = false;
+    int generations = 0;
 
     Population popul(userPopChoice, userXOverProb, userMutateProb);
     for(int j = 0; j < userPopChoice; j++){
@@ -238,7 +289,8 @@ void runFunc5GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
     std::cout << "Gen(0) ";
     popul.displayPopData();
 
-    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+    fout << seed << ',' << 0 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+        ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
 
     for(int j = 0; j < userGenChoice; j++){
         popul.selectNewPopulation();
@@ -265,12 +317,21 @@ void runFunc5GA(char userCHCChoice, int userPopChoice, int userGenChoice, float 
         popul.calcFitnessSum();
 
         popul.findMaxFitness();
+        if(popul.getMaxObjVal() <= 5 && found == false){
+            found = true;
+            generations = j;
+        }
+        else if(found == false){
+            generations = 1000;
+        }
         popul.findMinFitness();
         popul.findAvgFitness();
         std::cout << "Gen(" << j + 1 << ") ";
         popul.displayPopData();
 
-        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() << endl;
+        fout << seed << ',' << j+1 << ',' << popul.getMaxFitness() << ',' << popul.getMinFitness() << ',' << popul.getAvgFitness() <<
+            ',' << popul.getMaxObjVal() << ',' << popul.getMinObjVal() << ',' << popul.getAvgObjVal() << endl;
     }
     std::cout << endl;
+    return generations;
 }

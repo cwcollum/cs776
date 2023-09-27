@@ -2,6 +2,7 @@
 
 Individual::Individual(){
     fitness = 0;
+    objFuncValue = 0;
     inputDim = 1;
     alleleLen = 1;
     chromLen = 1;
@@ -25,6 +26,7 @@ Individual::Individual(const Individual& rhs){
     alleleLen = rhs.alleleLen;
     chromLen = rhs.chromLen;
     fitness = rhs.fitness;
+    objFuncValue = rhs.objFuncValue;
     chromosome = new int[chromLen];
     encodes = new int[inputDim];
 
@@ -46,6 +48,14 @@ float Individual::getFitness(){
 
 void Individual::setFitness(float fit){
     fitness = fit;
+}
+
+float Individual::getObjFuncValue(){
+    return objFuncValue;
+}
+
+void Individual::setObjFuncValue(float val){
+    objFuncValue = val;
 }
 
 int Individual::getInputDim(){
@@ -113,6 +123,7 @@ void Individual::dejongFunc1Eval(){
         float rangeConv = (float(encodes[i]) / 100.0) - 5.12;
         sum += pow(rangeConv, 2);
     }
+    objFuncValue = sum;
     fitness = 1 / (sum + 1);
 }
 
@@ -129,6 +140,7 @@ void Individual::dejongFunc2Eval(){
         float eqsqr = eq1 * eq1;
         sum += 100 * eqsqr + eq2;
     }
+    objFuncValue = sum;
     fitness = 1 / (sum + 1);
 }
 
@@ -141,7 +153,7 @@ void Individual::dejongFunc3Eval(){
         float rangeConv = (float(encodes[i]) / 100.0) - 5.12;
         sum += floor(rangeConv);
     }
-
+    objFuncValue = sum;
     fitness = 50 / (sum + 50);
 }
 
@@ -156,7 +168,7 @@ void Individual::dejongFunc4Eval(){
     }
     float noise = ((float) rand() / (RAND_MAX));
     sum += noise;
-
+    objFuncValue = sum;
     fitness = 10 / (sum + 10);
 }
 
@@ -182,6 +194,6 @@ void Individual::dejongFunc5Eval(){
     }
     sum += 0.002;
     sum = (1.0 / sum);
-
+    objFuncValue = sum;
     fitness = 100 / (sum + 100);
 }

@@ -24,6 +24,7 @@ int main(int argc, char** argv){
     int userGenChoice = 100;
     float userXOverProb = 0.667;
     float userMutateProb = 0.001;
+    int genToMax[30] = {1000};
     cout << "Set population size, generation size, crossover probability, mutation probability" << endl;
     cout << "Values (space separated): ";
     cin >> userPopChoice >> userGenChoice >> userXOverProb >> userMutateProb;
@@ -35,28 +36,28 @@ int main(int argc, char** argv){
         if(!fout.is_open()){
             std::cout << "unable to create file" << endl;
         }
-        fout << "Seed,Gen,MaxFitness,MinFitness,AvgFitness" << endl;
+        fout << "Seed,Gen,MaxFitness,MinFitness,AvgFitness,MaxObjVal,MinObjVal,AvgObjVal" << endl;
 
         //Main loop to run the GA utilizing all random seeds in order to determine reliability
-        for(int i = 1; i < 30; i++){
+        for(int i = 1; i < 31; i++){
             srand(i);
             cout << "Seed " << i << endl;
 
             switch(userFuncChoice){
                 case 1:
-                    runFunc1GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc1GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
                 case 2:
-                    runFunc2GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc2GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
                 case 3:
-                    runFunc3GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc3GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
                 case 4:
-                    runFunc4GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc4GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
                 case 5:
-                    runFunc5GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc5GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
             }
 
@@ -69,28 +70,28 @@ int main(int argc, char** argv){
         if(!fout.is_open()){
             std::cout << "unable to create file" << endl;
         }
-        fout << "Seed,Gen,MaxFitness,MinFitness,AvgFitness" << endl;
+        fout << "Seed,Gen,MaxFitness,MinFitness,AvgFitness,MaxObjVal,MinObjVal,AvgObjVal" << endl;
 
         //Main loop to run the GA utilizing all random seeds in order to determine reliability
-        for(int i = 1; i < 30; i++){
+        for(int i = 1; i < 31; i++){
             srand(i);
             cout << "Seed " << i << endl;
 
             switch(userFuncChoice){
                 case 1:
-                    runFunc1GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc1GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
                 case 2:
-                    runFunc2GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc2GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
                 case 3:
-                    runFunc3GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc3GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
                 case 4:
-                    runFunc4GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc4GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
                 case 5:
-                    runFunc5GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
+                    genToMax[i-1] = runFunc5GA(userCHCChoice, userPopChoice, userGenChoice, userXOverProb, userMutateProb, i, fout);
                     break;
             }
 
@@ -98,6 +99,13 @@ int main(int argc, char** argv){
 
         fout.close();
     }
+
+    int genToMaxAvg = 0;
+    for(int i = 1; i < 31; i++){
+        genToMaxAvg += genToMax[i-1];
+    }
+    genToMaxAvg = genToMaxAvg / 30;
+    cout << genToMaxAvg << endl;
 
     return 0;
 }

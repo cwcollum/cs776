@@ -4,6 +4,7 @@ class Population{
     int popSize;
     int count;
     float fitnessSum;
+    float objValSum;
 
     float xoverProb;
     float mutateProb;
@@ -11,6 +12,10 @@ class Population{
     float maxFitness;
     float minFitness;
     float avgFitness;
+
+    float maxObjVal;
+    float minObjVal;
+    float avgObjVal;
 
     Individual* individual;
     Individual* newIndividual;
@@ -28,6 +33,10 @@ class Population{
         float getMinFitness();
         float getAvgFitness();
         float getfitnessSum();
+
+        float getMaxObjVal();
+        float getMinObjVal();
+        float getAvgObjVal();
 
         void addIndividual(Individual);
         void printPopulation();

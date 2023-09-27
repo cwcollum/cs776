@@ -68,6 +68,18 @@ float Population::getfitnessSum(){
     return fitnessSum;
 }
 
+float Population::getMaxObjVal(){
+    return maxObjVal;
+}
+
+float Population::getMinObjVal(){
+    return minObjVal;
+}
+
+float Population::getAvgObjVal(){
+    return avgObjVal;
+}
+
 void Population::addIndividual(Individual indiv){
     if(count < popSize){
         individual[count] = indiv;
@@ -95,8 +107,10 @@ void Population::printNewPopulation(){
 
 void Population::calcFitnessSum(){
     fitnessSum = 0;
+    objValSum = 0;
     for(int i = 0; i < popSize; i++){
         fitnessSum += individual[i].getFitness();
+        objValSum += individual[i].getObjFuncValue();
     }
 }
 
@@ -232,10 +246,11 @@ void Population::mutate(){
 }
 
 void Population::findMaxFitness(){
-    maxFitness = individual[0].getFitness();
+    maxFitness = 0.0;
     for(int i = 1; i < popSize; i++){
-        if(individual[i].getFitness() > maxFitness){
+        if(individual[i].getFitness() >= maxFitness){
             maxFitness = individual[i].getFitness();
+            maxObjVal = individual[i].getObjFuncValue();
         }
     }
 }
@@ -245,12 +260,14 @@ void Population::findMinFitness(){
     for(int i = 1; i < popSize; i++){
         if(individual[i].getFitness() < minFitness){
             minFitness = individual[i].getFitness();
+            minObjVal = individual[i].getObjFuncValue();
         }
     }
 }
 
 void Population::findAvgFitness(){
     avgFitness = fitnessSum / float(popSize);
+    avgObjVal = objValSum / float(popSize);
 }
 
 void Population::displayPopData(){

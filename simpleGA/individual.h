@@ -7,6 +7,8 @@ using namespace std;
 
 class Individual{
     float fitness;
+    float objFuncValue;
+
     int inputDim;
     int alleleLen;
     int chromLen;
@@ -22,6 +24,9 @@ class Individual{
 
         float getFitness();
         void setFitness(float);
+
+        float getObjFuncValue();
+        void setObjFuncValue(float);
 
         int getInputDim();
         int getChromLen();
